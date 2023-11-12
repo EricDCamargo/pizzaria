@@ -37,7 +37,7 @@ model Product {
   name String
   price String
   description String
-  baner String
+  banner String
   created_at DateTime? @default(now())
   updated_at DateTime? @default(now())
 

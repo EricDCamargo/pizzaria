@@ -27,7 +27,7 @@ CREATE TABLE "products" (
     "name" TEXT NOT NULL,
     "price" TEXT NOT NULL,
     "description" TEXT NOT NULL,
-    "baner" TEXT NOT NULL,
+    "banner" TEXT NOT NULL,
     "created_at" TIMESTAMP(3) DEFAULT CURRENT_TIMESTAMP,
     "updated_at" TIMESTAMP(3) DEFAULT CURRENT_TIMESTAMP,
     "category_id" TEXT NOT NULL,
