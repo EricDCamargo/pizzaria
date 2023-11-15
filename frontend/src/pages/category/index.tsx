@@ -5,6 +5,7 @@ import { FormEvent, useState } from 'react'
 
 import { setupAPIClient } from '@/src/services/api'
 import { toast } from 'react-toastify'
+import { canSSRAuth } from '@/src/utils/canSSRAuth'
 
 export default function Category() {
   const [categoryName, setCategoryName] = useState<string>('')
@@ -37,7 +38,7 @@ export default function Category() {
             <input
               className={styles.input}
               type="text"
-              placeholder="Disgite o nome da categoria"
+              placeholder="Digite o nome da categoria"
               value={categoryName}
               onChange={e => setCategoryName(e.target.value)}
             />
@@ -50,3 +51,7 @@ export default function Category() {
     </>
   )
 }
+
+export const getServerSideProps = canSSRAuth(async ctx => {
+  return { props: {} }
+})
