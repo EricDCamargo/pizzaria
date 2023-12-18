@@ -8,3 +8,11 @@ type SignUpCredentials = {
   email: string
   password: string
 }
+
+type NewProduct = {
+  name: string
+  price: string
+  description: string
+  imageAvatar: File | null
+  avatarUrl: string
+}
