@@ -7,15 +7,6 @@ import { ChangeEvent, FormEvent, useState } from 'react'
 import { setupAPIClient } from '@/src/services/api'
 import { toast } from 'react-toastify'
 
-type ItemProps = {
-  id: string
-  name: string
-}
-
-interface CategoryProps {
-  categoryList: ItemProps[]
-}
-
 const newProduct: NewProduct = {
   name: '',
   description: '',
