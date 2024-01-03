@@ -62,7 +62,13 @@ export default function DashBoard({ orderList }: HomeProps) {
           </article>
         </main>
 
-        {modalVisible && <ModalOrder />}
+        {modalVisible && (
+          <ModalOrder
+            isOpen={modalVisible}
+            onRequestClose={handleCloseModalView}
+            order={modalItem!}
+          />
+        )}
       </div>
     </>
   )
