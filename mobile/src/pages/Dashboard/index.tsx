@@ -1,17 +1,24 @@
-import { useContext } from 'react'
-import {
-  Button,
-  Text,
-  View,
-  StyleSheet,
-  TextInput,
-  TouchableOpacity
-} from 'react-native'
-import { AuthContext } from '../../contexts/AuthContext'
+import { useState } from 'react'
+import { Text, StyleSheet, TextInput, TouchableOpacity } from 'react-native'
 import { SafeAreaView } from 'react-native-safe-area-context'
+import { useNavigation } from '@react-navigation/native'
+import { NativeStackNavigationProp } from '@react-navigation/native-stack'
+import { StackParmsList } from '../../routes/app.routes'
 
 export default function Dashboard() {
-  const { signOut } = useContext(AuthContext)
+  const navigation = useNavigation<NativeStackNavigationProp<StackParmsList>>()
+  const [number, setNumber] = useState('')
+
+  async function openOrder() {
+    if (!number) {
+      return
+    }
+    navigation.navigate('Order', {
+      number: number,
+      order_id: 'sbdjksndjvnsjdn'
+    })
+  }
+
   return (
     <SafeAreaView style={styles.container}>
       <Text style={styles.title}>Novo pedido</Text>
@@ -20,8 +27,10 @@ export default function Dashboard() {
         placeholderTextColor={'#f0f0f0'}
         style={styles.input}
         keyboardType="numeric"
+        value={number}
+        onChangeText={setNumber}
       />
-      <TouchableOpacity style={styles.button}>
+      <TouchableOpacity style={styles.button} onPress={openOrder}>
         <Text style={styles.buttonText}>Abrir mesa</Text>
       </TouchableOpacity>
     </SafeAreaView>
