@@ -4,6 +4,7 @@ import { SafeAreaView } from 'react-native-safe-area-context'
 import { useNavigation } from '@react-navigation/native'
 import { NativeStackNavigationProp } from '@react-navigation/native-stack'
 import { StackParmsList } from '../../routes/app.routes'
+import { api } from '../../services/api'
 
 export default function Dashboard() {
   const navigation = useNavigation<NativeStackNavigationProp<StackParmsList>>()
@@ -13,10 +14,13 @@ export default function Dashboard() {
     if (!number) {
       return
     }
+    const response = await api.post('/order', { table: Number(number) })
+
     navigation.navigate('Order', {
       number: number,
-      order_id: 'sbdjksndjvnsjdn'
+      order_id: response.data.id
     })
+    setNumber('')
   }
 
   return (
