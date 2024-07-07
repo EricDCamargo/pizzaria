@@ -1,7 +1,10 @@
-import { ActivityIndicator, View } from 'react-native'
+import React, { useContext } from 'react'
+
+import { View, ActivityIndicator } from 'react-native'
+
 import AppRoutes from './app.routes'
 import AuthRoutes from './auth.routes'
-import { useContext } from 'react'
+
 import { AuthContext } from '../contexts/AuthContext'
 
 function Routes() {
@@ -17,11 +20,12 @@ function Routes() {
           alignItems: 'center'
         }}
       >
-        <ActivityIndicator size={60} color="#F5F7FB" />
+        <ActivityIndicator size={60} color="#FFF" />
       </View>
     )
   }
 
   return isAuthenticated ? <AppRoutes /> : <AuthRoutes />
 }
+
 export default Routes

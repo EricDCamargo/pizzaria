@@ -1,45 +1,59 @@
-import { useState } from 'react'
-import { Text, StyleSheet, TextInput, TouchableOpacity } from 'react-native'
-import { SafeAreaView } from 'react-native-safe-area-context'
+import React, { useState } from 'react'
+import {
+  View,
+  Text,
+  SafeAreaView,
+  TouchableOpacity,
+  TextInput,
+  StyleSheet
+} from 'react-native'
+
 import { useNavigation } from '@react-navigation/native'
+
 import { NativeStackNavigationProp } from '@react-navigation/native-stack'
-import { StackParmsList } from '../../routes/app.routes'
+import { StackPramsList } from '../../routes/app.routes'
+
 import { api } from '../../services/api'
 
 export default function Dashboard() {
-  const navigation = useNavigation<NativeStackNavigationProp<StackParmsList>>()
+  const navigation = useNavigation<NativeStackNavigationProp<StackPramsList>>()
+
   const [number, setNumber] = useState('')
 
   async function openOrder() {
-    if (!number) {
+    if (number === '') {
       return
     }
-    const response = await api.post('/order', { table: Number(number) })
 
-    navigation.navigate('Order', {
-      number: number,
-      order_id: response.data.id
+    const response = await api.post('/order', {
+      table: Number(number)
     })
+
+    navigation.navigate('Order', { number: number, order_id: response.data.id })
+
     setNumber('')
   }
 
   return (
     <SafeAreaView style={styles.container}>
       <Text style={styles.title}>Novo pedido</Text>
+
       <TextInput
         placeholder="Numero da mesa"
-        placeholderTextColor={'#f0f0f0'}
+        placeholderTextColor="#F0F0F0"
         style={styles.input}
         keyboardType="numeric"
         value={number}
         onChangeText={setNumber}
       />
+
       <TouchableOpacity style={styles.button} onPress={openOrder}>
         <Text style={styles.buttonText}>Abrir mesa</Text>
       </TouchableOpacity>
     </SafeAreaView>
   )
 }
+
 const styles = StyleSheet.create({
   container: {
     flex: 1,
@@ -48,7 +62,12 @@ const styles = StyleSheet.create({
     paddingVertical: 15,
     backgroundColor: '#1d1d2e'
   },
-  title: { fontSize: 30, fontWeight: 'bold', color: '#fff', marginBottom: 24 },
+  title: {
+    fontSize: 30,
+    fontWeight: 'bold',
+    color: '#FFF',
+    marginBottom: 24
+  },
   input: {
     width: '90%',
     height: 60,
@@ -57,7 +76,7 @@ const styles = StyleSheet.create({
     paddingHorizontal: 8,
     textAlign: 'center',
     fontSize: 22,
-    color: '#fff'
+    color: '#FFF'
   },
   button: {
     width: '90%',
@@ -68,5 +87,9 @@ const styles = StyleSheet.create({
     justifyContent: 'center',
     alignItems: 'center'
   },
-  buttonText: { fontSize: 18, color: '#101026', fontWeight: 'bold' }
+  buttonText: {
+    fontSize: 18,
+    color: '#101026',
+    fontWeight: 'bold'
+  }
 })

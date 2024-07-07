@@ -1,4 +1,4 @@
-import { useContext, useState } from 'react'
+import React, { useState, useContext } from 'react'
 import {
   View,
   Text,
@@ -8,18 +8,20 @@ import {
   TouchableOpacity,
   ActivityIndicator
 } from 'react-native'
+
 import { AuthContext } from '../../contexts/AuthContext'
 
 export default function SignIn() {
-  const [email, setEmail] = useState<string>('')
-  const [password, setPassword] = useState<string>('')
-
   const { signIn, loadingAuth } = useContext(AuthContext)
 
+  const [email, setEmail] = useState('')
+  const [password, setPassword] = useState('')
+
   async function handleLogin() {
-    if (!email || !password) {
+    if (email === '' || password === '') {
       return
     }
+
     await signIn({ email, password })
   }
 
@@ -31,23 +33,25 @@ export default function SignIn() {
         <TextInput
           placeholder="Digite seu email"
           style={styles.input}
-          placeholderTextColor="#f0f0f0"
+          placeholderTextColor="#F0F0F0"
           value={email}
           onChangeText={setEmail}
         />
+
         <TextInput
           placeholder="Sua senha"
           style={styles.input}
-          placeholderTextColor="#f0f0f0"
+          placeholderTextColor="#F0F0F0"
           secureTextEntry={true}
           value={password}
           onChangeText={setPassword}
         />
+
         <TouchableOpacity style={styles.button} onPress={handleLogin}>
           {loadingAuth ? (
-            <ActivityIndicator size={25} color="#fff" />
+            <ActivityIndicator size={25} color="#FFF" />
           ) : (
-            <Text style={styles.textButton}>Acessar</Text>
+            <Text style={styles.buttonText}>Acessar</Text>
           )}
         </TouchableOpacity>
       </View>
@@ -79,17 +83,17 @@ const styles = StyleSheet.create({
     marginBottom: 12,
     borderRadius: 4,
     paddingHorizontal: 8,
-    color: '#fff'
+    color: '#FFF'
   },
   button: {
     width: '95%',
     height: 40,
     backgroundColor: '#3fffa3',
     borderRadius: 4,
-    alignItems: 'center',
-    justifyContent: 'center'
+    justifyContent: 'center',
+    alignItems: 'center'
   },
-  textButton: {
+  buttonText: {
     fontSize: 18,
     fontWeight: 'bold',
     color: '#101026'
